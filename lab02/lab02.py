@@ -117,6 +117,34 @@ def cycle(f1, f2, f3):
     """
     "*** YOUR CODE HERE ***"
     def my_cycle(num):
+        def func(cnt):
+            # print(num)
+            # n = num
+            while num >= 3 :
+                cnt = f3(f2(f1(cnt)))
+                num -= 3 
+            if num % 3 == 2:
+                cnt = f2(f1(cnt))
+            elif num % 3 == 1:
+                cnt = (f1(cnt))
+            else:
+                cnt = cnt
+            return cnt 
         
+        return func
     
     return my_cycle
+
+#  def innerfunc(y):
+#         def innnerfunc(x):
+#             n = y
+#             while n >= 3:
+#                 x = f3(f2(f1(x)))
+#                 n -= 3
+#             if n % 3 == 2:
+#                 return f2(f1(x))
+#             elif n % 3 == 1:
+#                 return f1(x)
+#             return x
+#         return innnerfunc
+#     return innerfunc

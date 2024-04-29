@@ -35,3 +35,10 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Some cache #
+######################
+*.bak
+*.dat
+*.pyc
+*.dir

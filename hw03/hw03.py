@@ -25,6 +25,16 @@ def num_eights(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n < 10:
+        if n == 8:
+            return 1
+        else:
+            return 0
+    else:
+        if n % 10 == 8:
+            return num_eights(n // 10) + 1
+        else:
+            return num_eights(n // 10)
 
 
 def pingpong(n):
@@ -61,6 +71,26 @@ def pingpong(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    def helper_func(num):
+        '''用于进行辅助的函数
+        '''
+        if num < 8 :        # 两种情况结果一样
+            return 0 
+        # if num == 1 :
+        #     return 0 
+        else:
+            if num_eights(num):
+                if num % 8 == 0 :       # 防止在出现又是8的倍数又有8时会被叠加两次
+                    return helper_func(num-1)
+                else:
+                    return helper_func(num-1)+1
+            else:
+                return helper_func(num-1)
+
+    if n == 1 :
+        return 1
+    else:
+        return pingpong(n-1)+(-1)**(helper_func(n-1)+(n-1)//8)
 
 
 def next_larger_coin(coin):
@@ -117,3 +147,20 @@ def count_coins(change):
     True
     """
     "*** YOUR CODE HERE ***"
+
+    def count_partitions(n, m):
+        """Count the ways to partition n using parts up to m."""
+        if n == 0:
+            return 1
+        elif n < 0:
+            return 0
+        elif m == None:
+            return 0
+        else:
+            return count_partitions(n-m, m) + count_partitions(n, next_smaller_coin(m))
+
+    if change < 5:
+        return 1  
+
+    else:
+        return count_partitions(change,25)

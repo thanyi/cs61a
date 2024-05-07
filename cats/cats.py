@@ -31,6 +31,16 @@ def pick(paragraphs, select, k):
     """
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    '''有什么不用新建一个list的方法吗？
+    '''
+    res = []
+    for paragraph in paragraphs:
+        if select(paragraph):
+             res.append(paragraph) 
+    # selected_paragraphs = [p for p in paragraphs if select(p)]
+    if k >= len(res):
+        return ''
+    return res[k]
     # END PROBLEM 1
 
 
@@ -50,6 +60,13 @@ def about(subject):
     assert all([lower(x) == x for x in subject]), 'subjects should be lowercase.'
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    def select(paragraph):
+        for item in subject:
+            if item in split(remove_punctuation(lower(paragraph))) :
+                return True
+        return False
+    
+    return select
     # END PROBLEM 2
 
 
@@ -80,6 +97,7 @@ def accuracy(typed, source):
     source_words = split(source)
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    
     # END PROBLEM 3
 
 

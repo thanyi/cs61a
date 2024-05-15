@@ -42,3 +42,7 @@ Thumbs.db
 *.dat
 *.pyc
 *.dir
+
+
+.vscode
+__pycache__

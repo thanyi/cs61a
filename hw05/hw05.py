@@ -9,7 +9,27 @@ def hailstone(n):
     1
     """
     "*** YOUR CODE HERE ***"
+    # yield n
+    # for _ in range(n):
 
+    #   if n % 2 == 0:
+    #       n =  n//2
+    #       yield n
+    #   elif n % 2 != 0 and n != 1:
+    #       n =  3*n+1
+    #       yield n
+    #   else:
+    #       yield 1
+
+    # while True:
+    #   yield 1
+    yield n
+    if n == 1:
+        yield from hailstone(n)
+    elif n % 2 == 0:
+        yield from hailstone(n // 2)
+    else:
+        yield from hailstone(n * 3 + 1)
 
 def merge(a, b):
     """
@@ -24,6 +44,19 @@ def merge(a, b):
     [2, 3, 5, 7, 8, 9, 11, 13, 14, 15]
     """
     "*** YOUR CODE HERE ***"
+    a_item,b_item = next(a) , next(b)
+    while True:
+        if a_item == b_item:
+            yield a_item
+            a_item,b_item = next(a) , next(b)
+        elif a_item <= b_item:
+            yield a_item
+            a_item = next(a)
+        else:
+            yield b_item
+            b_item = next(b)            
+
+
 
 
 def perms(seq):
@@ -49,6 +82,20 @@ def perms(seq):
     [['a', 'b'], ['b', 'a']]
     """
     "*** YOUR CODE HERE ***"
+    if not seq :
+        yield []
+    else:  # 和递归还是不一样，因为会继续从此开始
+        for item in perms(seq[1:]):
+            for i in range(len(seq)):
+                yield item[:i]+ [seq[0]] + item[i:]
+
+    # if not seq:
+    #     yield []
+    # else:
+    #     for p in perms(seq[1:]):
+    #         for i in range(len(seq)):
+    #             yield p[:i] + [seq[0]] + p[i:]
+    
 
 
 def yield_paths(t, value):

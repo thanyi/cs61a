@@ -133,9 +133,11 @@ def yield_paths(t, value):
     [[0, 2], [0, 2, 1, 2]]
     """
     "*** YOUR CODE HERE ***"
-    for _______________ in _________________:
-        for _______________ in _________________:
-            "*** YOUR CODE HERE ***"
+    if label(t) == value:
+        yield [value]
+    for b in branches(t):
+        for item in yield_paths(b,value):   # item是一个列表
+            yield [label(t)]+item
 
 
 def remainders_generator(m):
@@ -170,6 +172,13 @@ def remainders_generator(m):
     11
     """
     "*** YOUR CODE HERE ***"
+    def gen(i):
+        for item in naturals():
+            if item % m == i:
+                yield item
+        
+    for i in range(m):
+        yield gen(i)
 
 
 # Tree ADT

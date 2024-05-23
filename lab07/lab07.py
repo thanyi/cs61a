@@ -138,13 +138,13 @@ class Round:
     def play(self, who, card):
         assert not self.is_complete(), f'The round is over, player {who}'
         assert who == self.next_player, f'It is not your turn, player {who}'
-        self.next_player = ______________________________________
+        self.next_player = (who + 1) % 4
         if card >= self.highest:
-            ______________________________________
-            ______________________________________
-        if ______________________________________:
-            ______________________________________
+            self.highest = card
+            self.control = who
+        if self.is_complete():
+            self.winner = self.control
 
     def is_complete(self):
         """ Checks if a game could end. """
-        return ______________________________________
+        return self.next_player == self.starter and self.highest > -1

@@ -82,7 +82,7 @@ def reformat(word, raw_word):
     # add wrapping punctuation to the word
     if raw_word != word:
         word = raw_word[:first] + word
-        word = word + raw_word[last + 1:]
+        word = word + raw_word[last + 1 :]
 
     return word
 

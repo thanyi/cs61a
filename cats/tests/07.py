@@ -8,34 +8,47 @@ test = {
           'code': r"""
           >>> big_limit = 10
           >>> minimum_mewtations("wind", "wind", big_limit)
-          0
+          517d384918a3d2c34d07eba9676f0bdb
+          # locked
           >>> minimum_mewtations("wird", "wiry", big_limit)
-          1
+          52f1b72ba99dddc798bb5cebce0be695
+          # locked
           >>> minimum_mewtations("wird", "bird", big_limit)
-          1
+          52f1b72ba99dddc798bb5cebce0be695
+          # locked
           >>> minimum_mewtations("wird", "wir", big_limit)
-          1
+          52f1b72ba99dddc798bb5cebce0be695
+          # locked
           >>> minimum_mewtations("wird", "bwird", big_limit)
-          1
+          52f1b72ba99dddc798bb5cebce0be695
+          # locked
           >>> minimum_mewtations("speling", "spelling", big_limit)
-          1
+          52f1b72ba99dddc798bb5cebce0be695
+          # locked
           >>> minimum_mewtations("used", "use", big_limit)
-          1
+          52f1b72ba99dddc798bb5cebce0be695
+          # locked
           >>> minimum_mewtations("hash", "ash", big_limit)
-          1
+          52f1b72ba99dddc798bb5cebce0be695
+          # locked
           >>> minimum_mewtations("ash", "hash", big_limit)
-          1
+          52f1b72ba99dddc798bb5cebce0be695
+          # locked
           >>> minimum_mewtations("roses", "arose", big_limit)     # roses -> aroses -> arose
-          2
+          45c27a29bbaeb163dec9a0eaed9c7c9c
+          # locked
           >>> minimum_mewtations("tesng", "testing", big_limit)   # tesng -> testng -> testing
-          2
+          45c27a29bbaeb163dec9a0eaed9c7c9c
+          # locked
           >>> minimum_mewtations("rlogcul", "logical", big_limit) # rlogcul -> logcul -> logicul -> logical
-          3
+          91711de69bc1d16e478231c51fac5db8
+          # locked
           >>> minimum_mewtations("", "", big_limit) # nothing to nothing needs no edits
-          0
+          517d384918a3d2c34d07eba9676f0bdb
+          # locked
           """,
           'hidden': False,
-          'locked': False,
+          'locked': True,
           'multiline': False
         },
         {
@@ -110,7 +123,7 @@ test = {
           >>> with io.StringIO() as buf, redirect_stdout(buf):
           ...     trace.Trace(trace=True).runfunc(minimum_mewtations, "someawe", "awesome", 3)
           ...     output = buf.getvalue()
-          >>> len([line for line in output.split('\n') if 'funcname' in line]) < 1000
+          >>> len([line for line in output.split('\n') if 'funcname' in line]) <= 400 # Make sure your base case(s) is as tight as possible
           True
           """,
           'hidden': False,

@@ -26,7 +26,7 @@ def take_turn(prev_rolls, move_history, goal, game_rules):
     fair_dice = dice.make_fair_dice(6)
     dice_results = []
 
-    square_swine = game_rules["Square Swine"]
+    sus_fuss = game_rules["Sus Fuss"]
 
     def logged_dice():
         if len(dice_results) < len(prev_rolls):
@@ -63,7 +63,7 @@ def take_turn(prev_rolls, move_history, goal, game_rules):
             hog.play,
             strategy_for(0),
             strategy_for(1),
-            hog.square_update if square_swine else hog.simple_update,
+            hog.sus_update if sus_fuss else hog.simple_update,
             0,
             0,
             dice=logged_dice,
@@ -86,8 +86,8 @@ def take_turn(prev_rolls, move_history, goal, game_rules):
 @route
 def strategy(name, scores):
     STRATEGIES = {
-        "tail_strategy": hog.tail_strategy,
-        "square_strategy": hog.square_strategy,
+        "boar_strategy": hog.boar_strategy,
+        "sus_strategy": hog.sus_strategy,
         "final_strategy": hog.final_strategy,
     }
     return STRATEGIES[name](*scores[::-1])

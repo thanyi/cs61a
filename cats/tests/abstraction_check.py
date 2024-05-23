@@ -52,8 +52,8 @@ class Abstract:
         return id(self)
 
 class Match(Abstract):
-    def __init__(self, words, times_per_player):
-        self.a, self.b = words, times_per_player
+    def __init__(self, words, timestamps_per_player):
+        self.a, self.b = words, timestamps_per_player
     def __repr__(self):
         return '<Match {} {}>'.format(self.a, self.b)
 

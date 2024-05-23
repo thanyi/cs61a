@@ -102,8 +102,40 @@ class VendingMachine:
     'Here is your soda.'
     """
     "*** YOUR CODE HERE ***"
-    def __init__(self) -> None:
-        pass
+    
+    def __init__(self,goods,goods_price) -> None:
+        self.goods = goods
+        self.goods_price = goods_price
+        self.balance = 0
+        self.goods_num = 0
+
+    def add_funds(self,money):
+        if not self.goods_num:
+            return f'Nothing left to vend. Please restock. Here is your ${money}.'
+
+        self.balance += money
+        return f'Current balance: ${self.balance}'
+    
+    def vend(self):
+        if not self.goods_num:
+            return 'Nothing left to vend. Please restock.'
+
+        if self.balance < self.goods_price :
+            return f'Please add ${self.goods_price - self.balance} more funds.'
+        
+        change = self.balance - self.goods_price
+        self.balance = 0 
+        self.goods_num -=1 
+        if change: 
+            return f'Here is your {self.goods} and ${change} change.'
+        else:
+            return f'Here is your {self.goods}.'
+
+
+
+    def restock(self,num):
+        self.goods_num += num
+        return f'Current {self.goods} stock: {self.goods_num}'
 
 def make_test_random():
     """A deterministic random function that cycles between

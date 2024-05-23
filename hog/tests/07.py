@@ -7,28 +7,31 @@ test = {
         {
           'code': r"""
           >>> is_always_roll(always_roll_5)
-          True
+          bc6c4798917b91886d7fa5f56e42878f
+          # locked
           """,
           'hidden': False,
-          'locked': False,
+          'locked': True,
           'multiline': False
         },
         {
           'code': r"""
           >>> is_always_roll(always_roll(3))
-          True
+          bc6c4798917b91886d7fa5f56e42878f
+          # locked
           """,
           'hidden': False,
-          'locked': False,
+          'locked': True,
           'multiline': False
         },
         {
           'code': r"""
           >>> is_always_roll(catch_up)
-          False
+          d763fd836a7bfb096222e985b161b406
+          # locked
           """,
           'hidden': False,
-          'locked': False,
+          'locked': True,
           'multiline': False
         },
         {
@@ -95,6 +98,20 @@ test = {
           ...    else:
           ...        return 1
           >>> is_always_roll(s)
+          False
+          """,
+          'hidden': False,
+          'locked': False,
+          'multiline': False
+        },
+        {
+          'code': r"""
+          >>> def s(x, y):
+          ...    if x == 150 and y == 125:
+          ...        return 0
+          ...    else:
+          ...        return 1
+          >>> is_always_roll(s, 200) # GOAL is not always 100!
           False
           """,
           'hidden': False,

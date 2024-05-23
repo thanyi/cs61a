@@ -13,7 +13,7 @@ def play_and_print(strategy0, strategy1):
     """Simulate a game and print out what happened during the simulation."""
     final0, final1 = play(printing_strategy(0, strategy0),
                           printing_strategy(1, strategy1),
-                          square_update_and_print, 0, 0,
+                          sus_update_and_print, 0, 0,
                           printing_dice(six_sided))
     print('The final score is Player 0:', final0, 'vs Player 1:', final1)
 
@@ -57,26 +57,24 @@ def printing_dice(dice):
     return dice_and_print
 
 
-def square_update_and_print(num_rolls, player_score, opponent_score, dice):
+def sus_update_and_print(num_rolls, player_score, opponent_score, dice):
     """Return the updated score, print out the score update, and print when
-    Square Swine is triggered.
+    Sus Fuss is triggered.
 
-    >>> d = printing_dice(make_test_dice(4, 5, 2))
-    >>> square_update_and_print(3, 9, 99, d)
-      [ 4 5 2 ] => 11; 9 + 11 = 20
-    20
-    >>> square_update_and_print(3, 25, 99, d)
-      [ 4 5 2 ] => 11; 25 + 11 = 36 triggering **Square Swine**, increasing to 49
-    49
+    >>> d = printing_dice(make_test_dice(4, 5, 3))
+    >>> sus_update_and_print(3, 9, 99, d)
+      [ 4 5 3 ] => 12; 9 + 12 = 21 triggering **Sus Fuss**, increasing to 23
+    23
     """
     print('  [', end=" ")
-    turn_score = take_turn(num_rolls, opponent_score, dice)  # Prints dice outcomes
+    turn_score = take_turn(num_rolls, player_score, opponent_score, dice)  # Prints dice outcomes
     print('] =>', turn_score, end='; ')
     print(player_score, '+', turn_score, '=', player_score + turn_score, end='')
     score = turn_score + player_score
-    if perfect_square(score):
-        score = next_perfect_square(score)
-        print(' triggering **Square Swine**, increasing to', score)
+    sus_score = sus_points(score)
+    if sus_score != score:
+        score = sus_score
+        print(' triggering **Sus Fuss**, increasing to', score)
     else:
         print()  # This print completes the line without adding any additional text
     return score

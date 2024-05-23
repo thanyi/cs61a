@@ -8,28 +8,35 @@ test = {
           'code': r"""
           >>> big_limit = 10
           >>> feline_fixes("car", "cad", big_limit)
-          1
+          52f1b72ba99dddc798bb5cebce0be695
+          # locked
           >>> feline_fixes("this", "that", big_limit)
-          2
+          45c27a29bbaeb163dec9a0eaed9c7c9c
+          # locked
           >>> feline_fixes("one", "two", big_limit)
-          3
+          91711de69bc1d16e478231c51fac5db8
+          # locked
           >>> feline_fixes("from", "form", big_limit)
-          2
+          45c27a29bbaeb163dec9a0eaed9c7c9c
+          # locked
           >>> feline_fixes("awe", "awesome", big_limit)
-          4
-          >>> feline_fixes("someawe", "awesome", big_limit)
-          6
+          bfdc03a3c261c5dc71255ec79dd5977e
+          # locked
           >>> feline_fixes("awful", "awesome", big_limit)
-          5
+          f29bb7189bc0116caaaf05635899b49b
+          # locked
           >>> feline_fixes("awful", "awesome", 3) > 3
-          True
+          f0a7036a7438d73054555da0482ad042
+          # locked
           >>> feline_fixes("awful", "awesome", 4) > 4
-          True
+          f0a7036a7438d73054555da0482ad042
+          # locked
           >>> feline_fixes("awful", "awesome", 5) > 5
-          False
+          81e16d9126cb46b28abbb0a979cb030a
+          # locked
           """,
           'hidden': False,
-          'locked': False,
+          'locked': True,
           'multiline': False
         },
         {
@@ -113,7 +120,7 @@ test = {
           >>> with io.StringIO() as buf, redirect_stdout(buf):
           ...     trace.Trace(trace=True).runfunc(feline_fixes, "someaweqwertyuio", "awesomeasdfghjkl", 3)
           ...     output = buf.getvalue()
-          >>> len([line for line in output.split('\n') if 'funcname' in line]) < 10
+          >>> len([line for line in output.split('\n') if 'funcname' in line]) < 12
           True
           """,
           'hidden': False,

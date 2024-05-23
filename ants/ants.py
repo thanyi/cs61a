@@ -27,6 +27,8 @@ class Place:
         # Phase 1: Add an entrance to the exit
         # BEGIN Problem 2
         "*** YOUR CODE HERE ***"
+        if self.exit:
+            exit.entrance = self
         # END Problem 2
 
     def add_insect(self, insect):
@@ -143,6 +145,7 @@ class HarvesterAnt(Ant):
     name = 'Harvester'
     implemented = True
     # OVERRIDE CLASS ATTRIBUTES HERE
+    food_cost = 2 
 
     def action(self, gamestate):
         """Produce 1 additional food for the colony.
@@ -151,6 +154,7 @@ class HarvesterAnt(Ant):
         """
         # BEGIN Problem 1
         "*** YOUR CODE HERE ***"
+        gamestate.food += 1
         # END Problem 1
 
 
@@ -161,6 +165,9 @@ class ThrowerAnt(Ant):
     implemented = True
     damage = 1
     # ADD/OVERRIDE CLASS ATTRIBUTES HERE
+    food_cost = 3
+    upper_bound = float('inf')
+    lower_bound = 0
 
     def nearest_bee(self):
         """Return the nearest Bee in a Place (that is not the hive) connected to
@@ -169,7 +176,24 @@ class ThrowerAnt(Ant):
         This method returns None if there is no such Bee (or none in range).
         """
         # BEGIN Problem 3 and 4
-        return random_bee(self.place.bees) # REPLACE THIS LINE
+        place = self.place            
+
+        for _ in range(self.lower_bound):
+            if place.is_hive:
+                return None
+            place = place.entrance
+
+        while times <= self.upper_bound:
+            if place.is_hive:
+                return None
+            
+            if place.bees:
+                return random_bee(place.bees)
+            else:
+                place = place.entrance
+                times += 1
+                
+        return None
         # END Problem 3 and 4
 
     def throw_at(self, target):
@@ -200,8 +224,9 @@ class ShortThrower(ThrowerAnt):
     name = 'Short'
     food_cost = 2
     # OVERRIDE CLASS ATTRIBUTES HERE
+    upper_bound = 3
     # BEGIN Problem 4
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
     # END Problem 4
 
 
@@ -211,8 +236,9 @@ class LongThrower(ThrowerAnt):
     name = 'Long'
     food_cost = 2
     # OVERRIDE CLASS ATTRIBUTES HERE
+    lower_bound = 5
     # BEGIN Problem 4
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
     # END Problem 4
 
 
@@ -224,7 +250,7 @@ class FireAnt(Ant):
     food_cost = 5
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 5
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
     # END Problem 5
 
     def __init__(self, health=3):
@@ -240,6 +266,8 @@ class FireAnt(Ant):
         """
         # BEGIN Problem 5
         "*** YOUR CODE HERE ***"
+        self.health -= amount
+        
         # END Problem 5
 
 # BEGIN Problem 6

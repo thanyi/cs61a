@@ -177,7 +177,7 @@ class ThrowerAnt(Ant):
         """
         # BEGIN Problem 3 and 4
         place = self.place            
-
+        times = self.lower_bound
         for _ in range(self.lower_bound):
             if place.is_hive:
                 return None

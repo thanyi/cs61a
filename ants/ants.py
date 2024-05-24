@@ -266,7 +266,11 @@ class FireAnt(Ant):
         """
         # BEGIN Problem 5
         "*** YOUR CODE HERE ***"
-        self.health -= amount
+        # reflect damage
+        for bee in list(self.place.bees):
+            bee.reduce_health(amount + (self.damage if self.health <= amount else 0))
+        # reduce health
+        super().reduce_health(amount)
         
         # END Problem 5
 

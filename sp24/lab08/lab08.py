@@ -12,7 +12,16 @@ def cumulative_mul(t):
     Tree(5040, [Tree(60, [Tree(3), Tree(4), Tree(5)]), Tree(42, [Tree(7)])])
     """
     "*** YOUR CODE HERE ***"
+
     
+    for b in t.branches:
+        cumulative_mul(b)
+    ans = t.label
+    for b in t.branches:
+        ans *= b.label
+    t.label = ans
+    # return t
+            
 
 
 def prune_small(t, n):

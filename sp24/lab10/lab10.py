@@ -14,15 +14,15 @@ def calc_eval(exp):
     3
     """
     if isinstance(exp, Pair):
-        operator = ____________ # UPDATE THIS FOR Q2
-        operands = ____________ # UPDATE THIS FOR Q2
+        operator = exp.first # UPDATE THIS FOR Q2
+        operands = exp.rest # UPDATE THIS FOR Q2
         if operator == 'and': # and expressions
             return eval_and(operands)
         elif operator == 'define': # define expressions
             return eval_define(operands)
         else: # Call expressions
-            return calc_apply(___________, ___________) # UPDATE THIS FOR Q2
-    elif exp in OPERATORS:   # Looking up procedures
+            return calc_apply(calc_eval(operator), operands.map(calc_eval)) # UPDATE THIS FOR Q2
+    elif exp in OPERATORS:   # Looking up procedures 查看exp是否是OPERATORS的一个key
         return OPERATORS[exp]
     elif isinstance(exp, int) or isinstance(exp, bool):   # Numbers and booleans
         return exp
@@ -32,7 +32,7 @@ def calc_eval(exp):
 def calc_apply(op, args):
     return op(args)
 
-def floor_div(args):
+def floor_div(args): # args 是一个Pair对象
     """
     >>> floor_div(Pair(100, Pair(10, nil)))
     10
@@ -52,6 +52,15 @@ def floor_div(args):
     20
     """
     "*** YOUR CODE HERE ***"
+    
+    dividend = calc_eval(args.first) 
+    if args.rest is nil:
+        return dividend
+    else:
+        divisor = calc_eval(args.rest.first)
+        res = dividend // divisor
+        return floor_div( Pair(res, args.rest.rest) )
+
 
 scheme_t = True   # Scheme's #t
 scheme_f = False  # Scheme's #f

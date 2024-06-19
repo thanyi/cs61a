@@ -24,15 +24,27 @@ class Frame:
         return '<{{{0}}} -> {1}>'.format(', '.join(s), repr(self.parent))
 
     def define(self, symbol, value):
-        """Define Scheme SYMBOL to have VALUE."""
+        """Define Scheme SYMBOL to have VALUE.
+
+        >>> global_frame = create_global_frame()
+        >>> global_frame.define("x", 3)
+        >>> global_frame.lookup("x")
+        3
+               
+        """
         # BEGIN PROBLEM 1
         "*** YOUR CODE HERE ***"
+        self.bindings[symbol] = value
+
         # END PROBLEM 1
 
     def lookup(self, symbol):
         """Return the value bound to SYMBOL. Errors if SYMBOL is not found."""
         # BEGIN PROBLEM 1
         "*** YOUR CODE HERE ***"
+        if symbol in self.bindings.keys:
+            return self.bindings[symbol]
+        else 
         # END PROBLEM 1
         raise SchemeError('unknown identifier: {0}'.format(symbol))
 

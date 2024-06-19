@@ -26,8 +26,9 @@ def calc_eval(exp):
         return OPERATORS[exp]
     elif isinstance(exp, int) or isinstance(exp, bool):   # Numbers and booleans
         return exp
-    elif _________________: # CHANGE THIS CONDITION FOR Q4
-        return _________________ # UPDATE THIS FOR Q4
+    elif exp in bindings: # CHANGE THIS CONDITION FOR Q4
+        print('DEBUG:'+ str(bindings))
+        return bindings[exp] # UPDATE THIS FOR Q4
 
 def calc_apply(op, args):
     return op(args)
@@ -83,6 +84,14 @@ def eval_and(expressions):
     True
     """
     "*** YOUR CODE HERE ***"
+    curr , value = expressions, True
+
+    while curr is not nil:
+        value = calc_eval(curr.first)
+        if value is False:
+            return False
+        curr = curr.rest
+    return value
 
 bindings = {}
 
@@ -102,6 +111,13 @@ def eval_define(expressions):
     2
     """
     "*** YOUR CODE HERE ***"
+    key = expressions.first
+    value = expressions.rest.first
+
+    bindings[key] = calc_eval(value)
+    return key
+
+
 
 OPERATORS = { "//": floor_div, "+": addition, "-": subtraction, "*": multiplication, "/": division }
 

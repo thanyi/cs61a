@@ -18,6 +18,8 @@ def scheme_eval(expr, env, _=None): # Optional third argument is ignored
     Pair('+', Pair(2, Pair(2, nil)))
     >>> scheme_eval(expr, create_global_frame())
     4
+    >>> expr.rest
+    
     """
     # Evaluate atoms
     if scheme_symbolp(expr):
@@ -34,6 +36,13 @@ def scheme_eval(expr, env, _=None): # Optional third argument is ignored
     else:
         # BEGIN PROBLEM 3
         "*** YOUR CODE HERE ***"
+        procedure = scheme_eval(first,env)
+        validate_procedure(procedure)
+        
+        args = rest.map(lambda x:scheme_eval(x,env))
+        # print("DEBUG:args:"+repr(args))
+        # print("DEBUG:rest:"+repr(rest))
+        return scheme_apply(procedure,args, env)
         # END PROBLEM 3
 
 def scheme_apply(procedure, args, env):
@@ -49,7 +58,7 @@ def scheme_apply(procedure, args, env):
         while args:
             args_list.append(args.first)
             args = args.rest
-        print('DEBUG:'+str(args_list))
+        # print('DEBUG:'+str(args_list))
         if procedure.need_env is True:
             args_list.append(env)
 
@@ -88,6 +97,11 @@ def eval_all(expressions, env):
     2
     """
     # BEGIN PROBLEM 6
+    while expressions.rest is not nil:
+        scheme_eval(expressions.first)
+        expressions = expressions.rest
+
+    
     return scheme_eval(expressions.first, env) # replace this with lines of your own code
     # END PROBLEM 6
 

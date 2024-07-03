@@ -73,6 +73,9 @@ def scheme_apply(procedure, args, env):
     elif isinstance(procedure, LambdaProcedure):
         # BEGIN PROBLEM 9
         "*** YOUR CODE HERE ***"
+        
+
+
         # END PROBLEM 9
     elif isinstance(procedure, MuProcedure):
         # BEGIN PROBLEM 11
@@ -97,11 +100,14 @@ def eval_all(expressions, env):
     2
     """
     # BEGIN PROBLEM 6
+    if expressions is nil:
+        return None
     while expressions.rest is not nil:
-        scheme_eval(expressions.first)
+        scheme_eval(expressions.first,env)
         expressions = expressions.rest
 
-    
+    print("DEBUG:"+repr(expressions))
+    # print("DEBUG:"+str(scheme_eval(expressions,env)))
     return scheme_eval(expressions.first, env) # replace this with lines of your own code
     # END PROBLEM 6
 

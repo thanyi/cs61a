@@ -98,7 +98,7 @@ def do_lambda_form(expressions, env):
     validate_formals(formals)
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
-    # print("DEBUG:"+repr(expressions))
+    
     lambdaprocedure = LambdaProcedure(expressions.first,expressions.rest,env)
     return lambdaprocedure
     # END PROBLEM 7
@@ -134,6 +134,33 @@ def do_and_form(expressions, env):
     """
     # BEGIN PROBLEM 12
     "*** YOUR CODE HERE ***"
+    # 循环写法
+    if expressions is nil:
+        return True
+
+    while expressions is not nil:
+        result = scheme_eval(expressions.first, env)
+        if not is_scheme_true(result):
+            return False
+        expressions = expressions.rest
+
+    return result
+
+    # 递归写法
+    # if expressions is nil:
+    #     return True
+    
+    # font = scheme_eval(expressions.first,env)
+    
+
+    # if is_scheme_true(font):
+    #     if expressions.rest is nil:
+    #         return font
+    #     else:
+    #         return do_and_form(expressions.rest, env)
+    # else:
+    #     return False
+
     # END PROBLEM 12
 
 def do_or_form(expressions, env):
@@ -152,6 +179,39 @@ def do_or_form(expressions, env):
     """
     # BEGIN PROBLEM 12
     "*** YOUR CODE HERE ***"
+    # 循环的错误写法
+    # if expressions is nil:
+    #     return False
+    
+    # while is_scheme_false(scheme_eval(expressions.first,env)) and expressions.rest is not nil:
+    #     expressions = expressions.rest
+
+    # if is_scheme_true(scheme_eval(expressions.first,env)):
+    #     return scheme_eval(expressions.first,env)
+    # else:
+    #     return False
+
+    # 正确写法(循环) 
+    # if expressions is nil:
+    #     return False
+    # while expressions is not nil:
+    #     res = scheme_eval(expressions.first,env)
+    #     if not is_scheme_false(res):
+    #         return res
+    #     expressions = expressions.rest
+  
+    # return False
+
+    # 递归写法
+    if expressions is nil:
+        return False
+
+    res = scheme_eval(expressions.first,env)
+    if is_scheme_false(res):
+        return do_or_form(expressions.rest,env)
+    else:
+        return res
+
     # END PROBLEM 12
 
 def do_cond_form(expressions, env):
@@ -172,6 +232,12 @@ def do_cond_form(expressions, env):
         if is_scheme_true(test):
             # BEGIN PROBLEM 13
             "*** YOUR CODE HERE ***"
+            # print("DEBUG:"+repr(clause))
+            if clause.rest is not nil:
+                return eval_all(clause.rest,env)
+            else:
+                return test  # 这个会和上面的test表达式重合，导致再次调用，所以不能直接写scheme_eval(clause.first, env)
+
             # END PROBLEM 13
         expressions = expressions.rest
 
@@ -196,6 +262,14 @@ def make_let_frame(bindings, env):
     names = vals = nil
     # BEGIN PROBLEM 14
     "*** YOUR CODE HERE ***"
+    pos = bindings
+    while pos is not nil:
+        front = pos.first  # i.e. the first binding
+        validate_form(front, 2, 2)  # verify the structure is (<name> <expression>)
+        names = Pair(front.first, names)
+        vals = Pair(eval_all(front.rest, env), vals)
+        pos = pos.rest
+    validate_formals(names)
     # END PROBLEM 14
     return env.make_child_frame(names, vals)
 

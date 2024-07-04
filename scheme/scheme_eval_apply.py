@@ -58,7 +58,7 @@ def scheme_apply(procedure, args, env):
         while args:
             args_list.append(args.first)
             args = args.rest
-        # print('DEBUG:'+str(args_list))
+
         if procedure.need_env is True:
             args_list.append(env)
 
@@ -73,13 +73,21 @@ def scheme_apply(procedure, args, env):
     elif isinstance(procedure, LambdaProcedure):
         # BEGIN PROBLEM 9
         "*** YOUR CODE HERE ***"
-        
-
+        # 从LambdaProcedure的父env中产生一个新的env，然后计算这个body中的所有东西
+        childframe = procedure.env.make_child_frame(procedure.formals,args)
+        return eval_all(procedure.body,env=childframe)
 
         # END PROBLEM 9
     elif isinstance(procedure, MuProcedure):
         # BEGIN PROBLEM 11
         "*** YOUR CODE HERE ***"
+        # mu 是一种特殊形式，它创建一个使用动态作用域的过程。在动态作用域中，当一个过程被调用
+        # 时，它会在调用它的环境中查找变量，而不是在定义它的环境中查找。
+        childframe = env.make_child_frame(procedure.formals,args)
+        return eval_all(procedure.body,env=childframe)
+
+
+
         # END PROBLEM 11
     else:
         assert False, "Unexpected procedure: {}".format(procedure)
@@ -106,7 +114,7 @@ def eval_all(expressions, env):
         scheme_eval(expressions.first,env)
         expressions = expressions.rest
 
-    print("DEBUG:"+repr(expressions))
+    # print("DEBUG:"+repr(expressions))
     # print("DEBUG:"+str(scheme_eval(expressions,env)))
     return scheme_eval(expressions.first, env) # replace this with lines of your own code
     # END PROBLEM 6

@@ -1,6 +1,7 @@
 # cs61a
 CS 61A: Structure and Interpretation of Computer Programs, Spring 2023
-
+由于中间发现sp23无法访问，所以进入sp24进行lab和HW的书写，中间有着少许差异，要参考的可以注意一下
+不过project都是一模一样的
 ---
 
 Homework
@@ -13,8 +14,6 @@ Homework
 - HW 06: Object Oriented Programming, Linked Lists
 - HW 07: Linked Lists, Mutable Trees
 - HW 08: Scheme
-- HW 09: Scheme Lists
-- HW 10: SQL
 
 ---
 
@@ -30,9 +29,6 @@ Labs
 - Lab 08: OOP, Inheritance
 - Lab 09: Mutable Trees, Efficiency
 - Lab 10: Midterm Review
-- Lab 11: Scheme
-- Lab 12: Scheme Lists, Interpreters
-- Lab 13: SQL
 
 ---
 
